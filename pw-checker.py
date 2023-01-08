@@ -5,7 +5,6 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-
 # Read the data
 data = pd.read_csv('data.csv', on_bad_lines='skip')
 data = data.dropna()  # drop rows with missing values
@@ -21,13 +20,13 @@ def word(password):  # function to split the password into characters
     return character
 
 
-pw = np.array(data['pw'])  # convert the password column to an array
-# convert the strength column to an array
+# convert password and strength columns to arrays
+pw = np.array(data['pw'])
 strength = np.array(data['strength'])
 
-# create a TfidfVectorizer object
-tfid = TfidfVectorizer(analyzer=word) # analyzer is the function to split the password into characters
-pw = tfid.fit_transform(pw)  # fit the data to the object
+# TfidVectorizer object to convert the password into a vector
+tfid = TfidfVectorizer(analyzer=word)
+pw = tfid.fit_transform(pw) # fit the data to the object
 
 # split the data into training and testing data
 pwtrain, pwtest, strengthtrain, strengthtest = train_test_split(
